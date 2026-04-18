@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TrainManagement {
 
@@ -10,10 +9,6 @@ public class TrainManagement {
         public Bogie(String name, int capacity) {
             this.name = name;
             this.capacity = capacity;
-        }
-
-        public String getName() {
-            return name;
         }
 
         public int getCapacity() {
@@ -29,7 +24,7 @@ public class TrainManagement {
     public static void main(String[] args) {
 
         System.out.println("=====================================");
-        System.out.println("UC9 - Group Bogies by Type");
+        System.out.println("UC10 - Count Total Seats in Train");
         System.out.println("=====================================\n");
 
         List<Bogie> bogies = new ArrayList<>();
@@ -38,26 +33,18 @@ public class TrainManagement {
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
         bogies.add(new Bogie("Sleeper", 70));
-        bogies.add(new Bogie("AC Chair", 60));
 
-        System.out.println("All Bogies:");
+        System.out.println("Bogies in Train:");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
 
-        Map<String, List<Bogie>> groupedBogies =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(Bogie::getName));
+        int totalSeats = bogies.stream()
+                .map(b -> b.getCapacity())     // extract capacity
+                .reduce(0, Integer::sum);      // sum all values
 
-        System.out.println("\nGrouped Bogies:");
+        System.out.println("\nTotal Seating Capacity of Train: " + totalSeats);
 
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("\nBogie Type: " + entry.getKey());
-            for (Bogie b : entry.getValue()) {
-                System.out.println("Capacity -> " + b.getCapacity());
-            }
-        }
-
-        System.out.println("\nUC9 grouping completed...");
+        System.out.println("\nUC10 aggregation completed...");
     }
 }
