@@ -1,29 +1,43 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class TrainManagement {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println("UC17 - Sort Bogie Names Using Arrays.sort()");
+        System.out.println("UC18 - Linear Search for Bogie ID");
         System.out.println("======================================\n");
 
-        // Array of bogie type names
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
+        String[] bogieIds = {
+                "BG101",
+                "BG205",
+                "BG309",
+                "BG412",
+                "BG550"
         };
 
-        System.out.println("Before Sorting: " + Arrays.toString(bogieNames));
+        Scanner scanner = new Scanner(System.in);
 
-        // Using Arrays.sort()
-        Arrays.sort(bogieNames);
+        System.out.print("Enter Bogie ID to search: ");
+        String searchKey = scanner.nextLine();
 
-        System.out.println("After Sorting: " + Arrays.toString(bogieNames));
+        boolean found = false;
 
-        System.out.println("\nUC17 sorting completed...");
+        for (String id : bogieIds) {
+            if (id.equals(searchKey)) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            System.out.println("Bogie ID found: " + searchKey);
+        } else {
+            System.out.println("Bogie ID not found.");
+        }
+
+        System.out.println("\nUC18 searching completed...");
+
+        scanner.close();
     }
 }
