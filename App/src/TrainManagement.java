@@ -5,7 +5,7 @@ public class TrainManagement {
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println("UC18 - Linear Search for Bogie ID");
+        System.out.println("UC19 - Binary Search for Bogie ID");
         System.out.println("======================================\n");
 
         String[] bogieIds = {
@@ -21,12 +21,22 @@ public class TrainManagement {
         System.out.print("Enter Bogie ID to search: ");
         String searchKey = scanner.nextLine();
 
+        int low = 0;
+        int high = bogieIds.length - 1;
         boolean found = false;
 
-        for (String id : bogieIds) {
-            if (id.equals(searchKey)) {
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            int result = searchKey.compareTo(bogieIds[mid]);
+
+            if (result == 0) {
                 found = true;
                 break;
+            } else if (result > 0) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
 
@@ -36,8 +46,7 @@ public class TrainManagement {
             System.out.println("Bogie ID not found.");
         }
 
-        System.out.println("\nUC18 searching completed...");
-
+        System.out.println("\nUC19 searching completed...");
         scanner.close();
     }
 }
