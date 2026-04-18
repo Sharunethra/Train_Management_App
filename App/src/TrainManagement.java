@@ -1,52 +1,66 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TrainManagement {
+class TrainManagement {
 
-    public static void main(String[] args) {
+    // Bogie list
+    private List<String> bogies;
 
-        System.out.println("======================================");
-        System.out.println("UC19 - Binary Search for Bogie ID");
-        System.out.println("======================================\n");
+    // Constructor
+    public TrainManagement() {
+        bogies = new ArrayList<>();
+    }
 
-        String[] bogieIds = {
-                "BG101",
-                "BG205",
-                "BG309",
-                "BG412",
-                "BG550"
-        };
+    // Method to add bogie
+    public void addBogie(String bogieName) {
+        bogies.add(bogieName);
+    }
 
-        Scanner scanner = new Scanner(System.in);
+    // Search operation
+    public void searchBogie(String searchName) {
 
-        System.out.print("Enter Bogie ID to search: ");
-        String searchKey = scanner.nextLine();
 
-        int low = 0;
-        int high = bogieIds.length - 1;
+        if (bogies.isEmpty()) {
+            throw new IllegalStateException("Cannot perform search: No bogies available in the train.");
+        }
+
+
         boolean found = false;
 
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            int result = searchKey.compareTo(bogieIds[mid]);
-
-            if (result == 0) {
+        for (String bogie : bogies) {
+            if (bogie.equalsIgnoreCase(searchName)) {
                 found = true;
                 break;
-            } else if (result > 0) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
             }
         }
 
+
         if (found) {
-            System.out.println("Bogie ID found: " + searchKey);
+            System.out.println("Bogie found: " + searchName);
         } else {
-            System.out.println("Bogie ID not found.");
+            System.out.println("Bogie not found: " + searchName);
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        TrainManagement train = new TrainManagement();
+
+        try {
+
+            train.searchBogie("Sleeper");
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
-        System.out.println("\nUC19 searching completed...");
-        scanner.close();
+
+        train.addBogie("Sleeper");
+        train.addBogie("AC");
+        train.addBogie("General");
+
+
+        train.searchBogie("AC");
+        train.searchBogie("Luxury");
     }
 }
